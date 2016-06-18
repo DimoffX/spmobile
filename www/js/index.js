@@ -38,61 +38,73 @@ var app = {
         app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event
-
-
-    openPage: function(url) {
-        app.properties.ref = cordova.ThemeableBrowser.open(url, '_blank', {
-                statusbar: {
-                    color: '#ffffffff'
+    getBrowserOptions: function() {
+        var options = {
+            statusbar: {
+                color: '#ffffffff'
+            },
+            toolbar: {
+                height: 44,
+                color: '#f0f0f0ff'
+            },
+            title: {
+                color: '#003264ff',
+                align: "center",
+                showPageTitle: true
+            }
+        }
+        options.customButtons = [{
+            wwwImage: 'img/btns/sitepoint-logo.png',
+            wwwImagePressed: 'img/btns/sitepoint-logo.png',
+            wwwImageDensity: 1,
+            align: 'left',
+            event: 'SitePointSitePressed'
+        }]
+        options.menu = {
+            wwwImage: 'img/btns/menu.png',
+            imagePressed: 'img/btns/menu-pressed.png',
+            wwwImageDensity: 1,
+            title: 'Effects',
+            cancel: 'Cancel',
+            align: 'right',
+            items: [{
+                    event: 'speakPostPressed',
+                    label: "Speak Post"
                 },
-                toolbar: {
-                    height: 44,
-                    color: '#f0f0f0ff'
-                },
-                title: {
-                    color: '#003264ff',
-                    align: "center",
-                    showPageTitle: true
+
+                {
+                    event: 'speakTitlesPressed',
+                    label: "Speak Titles"
+                }, {
+                    event: 'stopSpeakingPressed',
+                    label: "Stop Speaking"
+                }, {
+                    event: 'viewCodeBlocks',
+                    label: 'Toggle Only Code Blocks'
                 },
 
-                customButtons: [{
-                    wwwImage: 'img/btns/sitepoint-logo.png',
-                    wwwImagePressed: 'img/btns/sitepoint-logo.png',
-                    wwwImageDensity: 1,
-                    align: 'left',
-                    event: 'SitePointSitePressed'
-                }],
-                menu: {
-                    wwwImage: 'img/btns/menu.png',
-                    imagePressed: 'img/btns/menu-pressed.png',
-                    wwwImageDensity: 1,
-                    title: 'Effects',
-                    cancel: 'Cancel',
-                    align: 'right',
-                    items: [{
-                            event: 'speakPostPressed',
-                            label: "Speak Post"
-                        },
+                {
+                    event: 'randomArticlePressed',
+                    label: 'Open a Random Article on the Page'
+                }
+            ]
+        }
+        return options;
+    },
 
-                        {
-                            event: 'speakTitlesPressed',
-                            label: "Speak Titles"
-                        }, {
-                            event: 'stopSpeakingPressed',
-                            label: "Stop Speaking"
-                        }, {
-                            event: 'viewCodeBlocks',
-                            label: 'Toggle Only Code Blocks'
-                        },
+        openPage: function(url) {
 
-                        {
-                            event: 'randomArticlePressed',
-                            label: 'Open a Random Article on the Page'
-                        }
-                    ]
-                },
-                backButtonCanClose: true
-            }).addEventListener('viewCodeBlocks', function(e) {
+        var options = app.getBrowserOptions();
+
+        app.properties.ref = cordova.ThemeableBrowser.open(url, '_blank', options);
+
+        app.addEventListeners();
+
+
+    },
+
+    addEventListeners: function() {
+        app.properties.ref.addEventListener('viewCodeBlocks', function(e) {
                 SitePointPostOptions.run("viewCodeBlocks");
             }).addEventListener('speakPostPressed', function(e) {
                 SitePointPostOptions.run("speakPost");
@@ -109,8 +121,8 @@ var app = {
                 SitePointPostOptions.run("speakTitles");
             })
             .addEventListener("SitePointSitePressed", function(e) {
-              SitePointPostOptions.run("logoClick");
-          })
+                SitePointPostOptions.run("logoClick");
+            })
             .addEventListener("randomArticlePressed", function(e) {
                 SitePointPostOptions.run("randomArticle");
             }).addEventListener("loadstop", function(evt) {
