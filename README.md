@@ -1,10 +1,19 @@
-# Hello World PhoneGap Template [![bitHound Score][bithound-img]][bithound-url]
+# SitePoint Mobile Browser [![bitHound Score][bithound-img]][bithound-url]
 
-A PhoneGap Hello World template
+A PhoneGap app which makes SitePoint available for smartphones and adds a few new features to the website.
 
+It allows users to:
+1. have the contents of a SitePoint post spoken aloud
+2. have the titles of a SitePoint page spoken aloud
+3. stop any speech currently in progress
+4. open a random SitePoint post if the page shows posts
+5. View only the code blocks on a given post
+6. Click on the SitePoint logo in the upper-left side of the browser and open the SitePoint website with their default browser.
 ## Usage
 
+
 #### PhoneGap CLI
+
 
 The hello-world template is the default when you create a new application using the [phonegap-cli][phonegap-cli-url].
 
