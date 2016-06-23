@@ -9,7 +9,6 @@ SitePointPostOptions.run = function(type, options) {
 
     SitePointPostOptions[type].call(this, options);
 
-
 }
 
 
@@ -22,9 +21,6 @@ SitePointPostOptions.speakPost = function() {
     }
     postContents = postContents.text();
     SitePointPostOptions.speakText(postContents);
-
-
-
 }
 
 SitePointPostOptions.stopSpeaking = function() {
@@ -57,14 +53,12 @@ SitePointPostOptions.viewCodeBlocks = function() {
 
 SitePointPostOptions.speakTitles = function() {
     //TODO: Speak only the tiles of the pages
-
     var titlesContents = $(app.properties.pageContents[0]).find("h1,h2,h3,h4,h5,h6");
     if (!titlesContents.length) {
         alert("There is probably no title out there to speak aloud!");
     }
     titlesContents = titlesContents.text();
     SitePointPostOptions.speakText(titlesContents);
-
 }
 
 SitePointPostOptions.randomArticle = function() {
@@ -76,7 +70,6 @@ SitePointPostOptions.randomArticle = function() {
     }
     var randomIndex = Math.floor(Math.random() * articles.length);
     var linkToFollow = articles[randomIndex].getAttribute("href");
-
     app.properties.ref.addEventListener("exit", function() {
         setTimeout(function() {
             app.properties.ref = null;
@@ -84,14 +77,11 @@ SitePointPostOptions.randomArticle = function() {
         }, 2000)
 
     })
-
     app.properties.ref.close();
-
-
 }
-SitePointPostOptions.logoClick = function() {
-  cordova.ThemeableBrowser.open("http://sitepoint.com", "_system");
-}
+  SitePointPostOptions.logoClick = function() {
+    cordova.ThemeableBrowser.open("http://sitepoint.com", "_system");
+  }
 
 SitePointPostOptions.speakText = function(text) {
     var speechProgress = 0;
